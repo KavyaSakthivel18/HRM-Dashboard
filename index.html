@@ -1,166 +1,108 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HRM Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>🏢 HRM Dashboard</h1>
+        <nav>
+            <a href="#employees">Employees</a>
+            <a href="#leaves">Leave Requests</a>
+            <a href="#meetings">Meetings</a>
+            <a href="events.html">Events</a>
+        </nav>
+    </header>
 
-    <style>
+    <!-- Employees Section -->
+    <section id="employees">
+        <h2>👥 Employee Management</h2>
+        <div class="form-container">
+            <input type="text" id="eid" placeholder="Employee ID">
+            <input type="text" id="name" placeholder="Name">
+            <input type="number" id="age" placeholder="Age">
+            <input type="text" id="manager" placeholder="Manager Name">
+            <button onclick="saveEData()">Add Employee</button>
+        </div>
+        <table id="employeeTable">
+            <thead>
+                <tr>
+                    <th>SI.NO</th>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Manager</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </section>
 
-        table{
-            border: 2px solid;
-            border-collapse: collapse;
-        }
-        td,th{
-            padding: 5px;
-            text-align: center;
-            border: 2px solid;
-        }
-        th{
-            background-color: rgb(16, 12, 141);
-            color: aliceblue;
-            border: 2px solid black;
-        }
+    <!-- Leave Requests Section -->
+    <section id="leaves">
+        <h2>📅 Leave Requests</h2>
+        <div class="form-container">
+            <input type="text" id="empName" placeholder="Employee Name">
+            <input type="text" id="empId" placeholder="Employee ID">
+            <select id="leaveType">
+                <option value="">Select Leave Type</option>
+                <option value="Casual">Casual</option>
+                <option value="Medical">Medical</option>
+                <option value="Annual">Annual</option>
+            </select>
+            <input type="date" id="fromDate">
+            <input type="date" id="toDate">
+            <textarea id="reason" placeholder="Reason"></textarea>
+            <button onclick="submitLeaveRequest()">Submit Leave Request</button>
+        </div>
+        <table id="leaveTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Employee</th>
+                    <th>Type</th>
+                    <th>From-To</th>
+                    <th>Reason</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </section>
 
-    </style>
+    <!-- Meetings Section -->
+    <section id="meetings">
+        <h2>📋 Meeting Schedules</h2>
+        <div class="form-container">
+            <input type="text" id="meetingTitle" placeholder="Meeting Title">
+            <input type="date" id="meetingDate">
+            <input type="time" id="meetingTime">
+            <input type="text" id="organizer" placeholder="Organizer">
+            <input type="text" id="platform" placeholder="Platform/Location">
+            <button onclick="scheduleMeeting()">Schedule Meeting</button>
+        </div>
+        <table id="meetingTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Organizer</th>
+                    <th>Platform</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </section>
 
-  </head>
-  <body>
-    <h1>HRM Sys</h1>
-
-    <button>Add Employee</button>
-
-    <br><br>
-
-    <div>
-        <input type="text" name="eid" id="eid" placeholder="id">
-        <br><br>
-        <input type="text" name="name" id="name" placeholder="Name">
-        <br><br>
-        <input type="text" name="age" id="age" placeholder="Age">
-        <br><br>
-        <input type="text" name="manager" id="manager" placeholder="Manager Name">
-
-        <button onclick="saveEData()">Submit</button>
-        <br><br>
-    </div>
-
-
-    <table id="table">
-        <tr>
-            <th>SI.NO</th>
-            <th>Name</th>
-            <th>Manager Name</th>
-            <th>Age</th>
-        </tr>
-    </table>
-
-  </body>
-
-
-  <script>
-
-    function saveEData(){
-        var eid = document.getElementById("eid").value;
-        var name = document.getElementById("name").value;
-        var age = document.getElementById("age").value;
-        var manager = document.getElementById("manager").value;
-
-        if(!eid || !name || !age || !manager) {
-            alert("Please fill all fields");
-            return;
-        }
-
-        var newUser = {
-            "id": eid,
-            "name": name,
-            "age": age,
-            "manager": manager
-        }
-
-        // Get existing saved users
-        let savedUsers = JSON.parse(localStorage.getItem("savedUsers")) || [];
-        
-        // Check if ID exists
-        if(savedUsers.find(u => u.id === eid)) {
-            alert("Employee ID already exists!");
-            return;
-        }
-        
-        // Save to localStorage
-        savedUsers.push(newUser);
-        localStorage.setItem("savedUsers", JSON.stringify(savedUsers));
-        
-        alert("Employee added successfully!");
-        
-        // Clear form
-        document.getElementById("eid").value = "";
-        document.getElementById("name").value = "";
-        document.getElementById("age").value = "";
-        document.getElementById("manager").value = "";
-        
-        // Refresh table
-        fetchingAdata();
-    }
-
-    function CrTable(data){
-        let users = data.users; // Access the users array from data.json
-        let count = 1;
-        let table = document.getElementById("table");
-        
-        // Clear existing rows (keep header)
-        while(table.rows.length > 1) {
-            table.deleteRow(1);
-        }
-        
-        // Add new rows with data
-        if(users && users.length > 0) {
-            users.forEach(user => {
-                let row = table.insertRow();
-                
-                let cell1 = row.insertCell(0);
-                let cell2 = row.insertCell(1);
-                let cell3 = row.insertCell(2);
-                let cell4 = row.insertCell(3);
-                
-                cell1.textContent = count;
-                cell2.textContent = user.name;
-                cell3.textContent = user.manager;
-                cell4.textContent = user.age;
-                
-                count++;
-            });
-        } else {
-            console.log("No users data found");
-        }
-    }
-
-    function fetchingAdata() {
-        try {
-            fetch("./data.json")
-            .then(res => res.json())
-            .then(data => {
-                console.log(data);
-                
-                // Get saved users from localStorage
-                let savedUsers = JSON.parse(localStorage.getItem("savedUsers")) || [];
-                
-                // Merge data.json users with saved users
-                let allUsers = [...data.users, ...savedUsers];
-                
-                // Display combined data
-                CrTable({users: allUsers});
-            })
-            .catch(err => {console.error(err);})
-        } catch (err) {
-            console.error(err);
-        }
-    }
-
-    setInterval(fetchingAdata, 1000);
-    
-    // Call immediately on page load
-    fetchingAdata();
-
-    </script>
+    <script src="script.js"></script>
+</body>
 </html>
