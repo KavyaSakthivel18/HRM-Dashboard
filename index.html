@@ -1,108 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HRM Dashboard</title>
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    <link rel="stylesheet" href="style.css">
+  <title>HRM Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
-    <header>
-        <h1>🏢 HRM Dashboard</h1>
-        <nav>
-            <a href="#employees">Employees</a>
-            <a href="#leaves">Leave Requests</a>
-            <a href="#meetings">Meetings</a>
-            <a href="events.html">Events</a>
-        </nav>
-    </header>
 
-    <!-- Employees Section -->
-    <section id="employees">
-        <h2>👥 Employee Management</h2>
-        <div class="form-container">
-            <input type="text" id="eid" placeholder="Employee ID">
-            <input type="text" id="name" placeholder="Name">
-            <input type="number" id="age" placeholder="Age">
-            <input type="text" id="manager" placeholder="Manager Name">
-            <button onclick="saveEData()">Add Employee</button>
-        </div>
-        <table id="employeeTable">
-            <thead>
-                <tr>
-                    <th>SI.NO</th>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Age</th>
-                    <th>Manager</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-    </section>
+<header>
+  <h1>HRM Dashboard</h1>
+  <nav>
+    <a href="#employees">Employees</a>
+    <a href="#leaves">Leaves</a>
+    <a href="#meetings">Meetings</a>
+    <a href="events.html">Events</a>
+  </nav>
+</header>
 
-    <!-- Leave Requests Section -->
-    <section id="leaves">
-        <h2>📅 Leave Requests</h2>
-        <div class="form-container">
-            <input type="text" id="empName" placeholder="Employee Name">
-            <input type="text" id="empId" placeholder="Employee ID">
-            <select id="leaveType">
-                <option value="">Select Leave Type</option>
-                <option value="Casual">Casual</option>
-                <option value="Medical">Medical</option>
-                <option value="Annual">Annual</option>
-            </select>
-            <input type="date" id="fromDate">
-            <input type="date" id="toDate">
-            <textarea id="reason" placeholder="Reason"></textarea>
-            <button onclick="submitLeaveRequest()">Submit Leave Request</button>
-        </div>
-        <table id="leaveTable">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Employee</th>
-                    <th>Type</th>
-                    <th>From-To</th>
-                    <th>Reason</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-    </section>
+<section id="employees">
+  <h2>Employee Management</h2>
+  <input id="eid" placeholder="ID">
+  <input id="name" placeholder="Name">
+  <input id="age" type="number" placeholder="Age">
+  <input id="manager" placeholder="Manager">
+  <button onclick="addEmployee()">Add</button>
+  <table id="employeeTable">
+    <thead>
+      <tr><th>ID</th><th>Name</th><th>Age</th><th>Manager</th><th>Action</th></tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</section>
 
-    <!-- Meetings Section -->
-    <section id="meetings">
-        <h2>📋 Meeting Schedules</h2>
-        <div class="form-container">
-            <input type="text" id="meetingTitle" placeholder="Meeting Title">
-            <input type="date" id="meetingDate">
-            <input type="time" id="meetingTime">
-            <input type="text" id="organizer" placeholder="Organizer">
-            <input type="text" id="platform" placeholder="Platform/Location">
-            <button onclick="scheduleMeeting()">Schedule Meeting</button>
-        </div>
-        <table id="meetingTable">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Title</th>
-                    <th>Date</th>
-                    <th>Time</th>
-                    <th>Organizer</th>
-                    <th>Platform</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-    </section>
+<section id="leaves">
+  <h2>Leave Requests</h2>
+  <input id="empName" placeholder="Name">
+  <input id="empId" placeholder="Employee ID">
+  <input id="leaveType" placeholder="Type">
+  <input id="fromDate" type="date">
+  <input id="toDate" type="date">
+  <input id="reason" placeholder="Reason">
+  <button onclick="addLeave()">Submit</button>
+  <table id="leaveTable">
+    <thead>
+      <tr><th>ID</th><th>Name</th><th>Status</th><th>Action</th></tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</section>
 
-    <script src="script.js"></script>
+<section id="meetings">
+  <h2>Meetings</h2>
+  <input id="meetingTitle" placeholder="Title">
+  <input id="meetingDate" type="date">
+  <input id="meetingTime" type="time">
+  <input id="organizer" placeholder="Organizer">
+  <input id="platform" placeholder="Platform">
+  <button onclick="addMeeting()">Schedule</button>
+  <table id="meetingTable">
+    <thead>
+      <tr><th>ID</th><th>Title</th><th>Action</th></tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</section>
+
+<script src="config.js"></script>
+<script src="script.js"></script>
 </body>
 </html>

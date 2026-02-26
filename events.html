@@ -1,39 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Events - HRM Dashboard</title>
-    <link rel="stylesheet" href="events-style.css">
+  <title>Events</title>
+  <link rel="stylesheet" href="events-style.css">
 </head>
 <body>
-    <header>
-        <h1>🎉 Events Management</h1>
-        <a href="index.html" class="back-btn">← Back to Dashboard</a>
-    </header>
 
-    <div class="form-container">
-        <input type="text" id="eventTitle" placeholder="Event Title">
-        <input type="date" id="eventDate">
-        <input type="text" id="eventLocation" placeholder="Location">
-        <textarea id="eventDescription" placeholder="Description"></textarea>
-        <button onclick="submitEventRequest()">Submit Event Request</button>
-    </div>
+<h2>Events Management</h2>
+<br><br>
+<input id="eventTitle" placeholder="Title">
+<input id="eventDate" type="date">
+<input id="eventLocation" placeholder="Location">
+<br><br>
+<button onclick="addEvent()">Add Event</button>
+<br><br>
+<table id="eventTable">
+  <thead>
+    <tr><th>ID</th><th>Title</th><th>Status</th><th>Action</th></tr>
+  </thead>
+  <tbody></tbody>
+</table>
 
-    <table id="eventTable">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Title</th>
-                <th>Date</th>
-                <th>Location</th>
-                <th>Status</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
-
-    <script src="events-script.js"></script>
+<script src="events-script.js"></script>
 </body>
 </html>

@@ -1,0 +1,19 @@
+# YOUR PRIVATE CONFIG (NEVER UPLOAD)
+config-local.js
+config-user.js
+
+# Environment files
+.env
+*.env
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Local data
+data-backup.json
+
+# Logs
+*.log
